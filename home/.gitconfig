@@ -1,0 +1,12 @@
+[user]
+	name = Valentin Klinghammer
+	email = valentin@quelltextfabrik.de
+[core]
+	editor = vim
+[color]
+	ui = true
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
