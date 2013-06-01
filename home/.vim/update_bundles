@@ -14,6 +14,8 @@ git_bundles = %w{
   git://github.com/tomtom/tcomment_vim.git
   git://github.com/scrooloose/syntastic.git
   git://github.com/cakebaker/scss-syntax.vim.git
+  git://github.com/tristen/vim-sparkup.git
+  git://github.com/jiangmiao/auto-pairs.git
 }
 
 require 'fileutils'
