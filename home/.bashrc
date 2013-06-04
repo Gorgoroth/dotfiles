@@ -23,3 +23,4 @@ PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -
 export PATH="/usr/local/heroku/bin:$PATH"
 
 alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
+

@@ -16,6 +16,7 @@ git_bundles = %w{
   git://github.com/cakebaker/scss-syntax.vim.git
   git://github.com/jiangmiao/auto-pairs.git
   git://github.com/mattn/zencoding-vim.git
+  git://github.com/terryma/vim-multiple-cursors.git
 }
 
 require 'fileutils'
