@@ -21,6 +21,3 @@ PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
-alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
-
