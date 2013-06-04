@@ -24,7 +24,7 @@ set autoindent                    " Use indent from previous line
 set backspace=indent,eol,start    " If backspace was any smarter it'd send a terminator back in time
 
 " --- Display options
-syntax=on
+syntax on
 set number                                " Display line numbers
 set cursorline                            " Highlight current line
 
