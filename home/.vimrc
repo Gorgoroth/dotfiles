@@ -59,7 +59,7 @@ set wildmode=list:longest,full  " TODO document the awesomeness of this
 set wildmenu
 set wildignore+=*.o,*.obj,*.pyc,*.pyo,*.pyd,*.class,*.lock
 set wildignore+=*.png,*.gif,*.jpg,*.ico
-set wildignore+=.git,.svn,.hg
+set wildignore+=',.svn,.hg
 set showcmd                     " Display incomplete commands
 
 " --- Buffer and backup options
@@ -84,11 +84,33 @@ if exists("+undofile")
   set undofile
 endif
 
-" --- Pathogen bundler -------------------------------------------------------
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
+" --- Vundler ----------------------------------------------------------------
+" Run after BundleInstall: .vim/bundle/YouCompleteMe/install.sh --clang-completer
+filetype off                            " required!
 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'tpope/vim-endwise'
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-sensible'
+Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'mattn/zencoding-vim'
+Bundle 'tpope/vim-fugitive'
+
+filetype plugin indent on               " required!
 
 " --- Eyecandy ---------------------------------------------------------------
 " --- Color and color scheme
