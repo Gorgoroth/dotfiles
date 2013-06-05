@@ -92,24 +92,73 @@ endif
 
 " --- Function to install bundles automagically
 function! LoadBundles()
-  " let Vundle manage Vundle
+  " --- let Vundle manage Vundle
   Bundle 'gmarik/vundle'
 
-  Bundle 'Lokaltog/vim-powerline'
+  " --- VIM Powerline options
+  if has("python")
+    Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+    set noshowmode
+  else
+    Bundle 'Lokaltog/vim-powerline'
+    let g:Powerline_symbols = 'unicode'
+    set noshowmode
+  endif
+  let g:Powerline_symbols = 'fancy'
+  let g:Powerline_colorscheme = 'vk'
+
+  " --- CtrlP plugin for fuzzy file finding
   Bundle 'kien/ctrlp.vim'
+  let g:ctrlp_map = '<c-p>'
+  let g:ctrlp_cmd = 'CtrlP'
+  let g:ctrlp_custom_ignore = {
+      \ 'dir': '\v[\/](\.git|\.hg|\.svn|CVS|tmp|Library|Applications|Music|[^\/]*-store)$',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \
+      \ }
+  let g:ctrlp_user_command = {
+      \ 'types' : {
+      \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+      \
+      \ }
+      \ }
+
+  " --- Fast autocompletion
   Bundle 'Valloric/YouCompleteMe'
+  call system('cd ~/.vim/bundle/YouCompleteMe && ./install.sh')
+
+  " --- Ends e.g. ruby blocks automatically
   Bundle 'tpope/vim-endwise'
+
+  " --- Smart pairing of brackets with CR and SPACE awareness
   Bundle 'jiangmiao/auto-pairs'
+
+  " --- Live multiple cursor editing
   Bundle 'terryma/vim-multiple-cursors'
+
+  " --- Syntax checking
+  if exists('*getmatches')
+    Bundle 'scrooloose/syntastic'
+    " Lets use fancy symbols
+    let g:syntastic_error_symbol='✗'
+    let g:syntastic_warning_symbol='⚠'
+  endif
+
   Bundle 'tomtom/tcomment_vim'
-  Bundle 'scrooloose/syntastic'
-  Bundle 'tpope/vim-haml'
-  Bundle 'tpope/vim-rails'
   Bundle 'vim-ruby/vim-ruby'
+  Bundle 'vim-scripts/ruby-matchit'
+  Bundle 'tpope/vim-bundler'
+  Bundle 'tpope/vim-rails'
+  Bundle 'tpope/vim-haml'
   Bundle 'tpope/vim-sensible'
   Bundle 'cakebaker/scss-syntax.vim'
   Bundle 'mattn/zencoding-vim'
   Bundle 'tpope/vim-fugitive'
+
+  if filereadable(expand("~/.vimrc.bundles"))
+    source ~/.vimrc.bundles
+  endif
 endfunction
 
 " --- Install Vundle and bundles if possible
@@ -141,15 +190,6 @@ filetype plugin indent on               " required!
 set t_Co=256                  " Enable 256 colors
 set background=dark           " Prefer dark background
 colorscheme wombat256mod_vk   " Chose most awesome theme here
-
-" --- VIM Powerline options
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme = 'vk'
-
-" --- Plugin options ---------------------------------------------------------
-" --- CtrlP plugin for fuzzy file finding
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
 
 " --- Helpers ----------------------------------------------------------------
 " --- Always jump to last known position if valid
