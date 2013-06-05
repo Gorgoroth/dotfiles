@@ -85,30 +85,54 @@ if exists("+undofile")
 endif
 
 " --- Vundler ----------------------------------------------------------------
-" Run after BundleInstall: .vim/bundle/YouCompleteMe/install.sh --clang-completer
+" This section should setup VIM with very little interaction, vundle and
+" the specified Bundles are installed autmatically
+"
+" Run manually after BundleInstall: .vim/bundle/YouCompleteMe/install.sh --clang-completer
+
+" --- Function to install bundles automagically
+function! LoadBundles()
+  " let Vundle manage Vundle
+  Bundle 'gmarik/vundle'
+
+  Bundle 'Lokaltog/vim-powerline'
+  Bundle 'kien/ctrlp.vim'
+  Bundle 'Valloric/YouCompleteMe'
+  Bundle 'tpope/vim-endwise'
+  Bundle 'jiangmiao/auto-pairs'
+  Bundle 'terryma/vim-multiple-cursors'
+  Bundle 'tomtom/tcomment_vim'
+  Bundle 'scrooloose/syntastic'
+  Bundle 'tpope/vim-haml'
+  Bundle 'tpope/vim-rails'
+  Bundle 'vim-ruby/vim-ruby'
+  Bundle 'tpope/vim-sensible'
+  Bundle 'cakebaker/scss-syntax.vim'
+  Bundle 'mattn/zencoding-vim'
+  Bundle 'tpope/vim-fugitive'
+endfunction
+
+" --- Install Vundle and bundles if possible
 filetype off                            " required!
+if executable("git")
+  if !isdirectory(expand("~/.vim/bundle/vundle"))
+    echomsg "***************************"
+    echomsg "Installing Vundle"
+    echomsg "***************************"
+    !mkdir -p ~/.vim/bundle && git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+    let s:bootstrap=1
+  endif
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+  set rtp+=~/.vim/bundle/vundle/
+  call vundle#rc()
+  call LoadBundles()
 
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'tpope/vim-endwise'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rails'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-sensible'
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'mattn/zencoding-vim'
-Bundle 'tpope/vim-fugitive'
+  if exists("s:bootstrap") && s:bootstrap
+    unlet s:bootstrap
+    BundleInstall
+    quit
+  endif
+endif
 
 filetype plugin indent on               " required!
 
