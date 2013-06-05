@@ -90,8 +90,6 @@ endif
 " --- Vundler ----------------------------------------------------------------
 " This section should setup VIM with very little interaction, vundle and
 " the specified Bundles are installed autmatically
-"
-" Run manually after BundleInstall: .vim/bundle/YouCompleteMe/install.sh --clang-completer
 
 " --- Function to install bundles automagically
 function! LoadBundles()
