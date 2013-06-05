@@ -126,7 +126,9 @@ function! LoadBundles()
 
   " --- Fast autocompletion
   Bundle 'Valloric/YouCompleteMe'
-  call system('cd ~/.vim/bundle/YouCompleteMe && ./install.sh')
+  if !filereadable(expand('~/.vim/bundle/YouCompleteMe/python/ycm_core.so'))
+    call system('cd ~/.vim/bundle/YouCompleteMe && ./install.sh')
+  endif
 
   " --- Ends e.g. ruby blocks automatically
   Bundle 'tpope/vim-endwise'
