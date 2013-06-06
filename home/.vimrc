@@ -44,6 +44,9 @@ set cmdheight=2                           " Command line two lines high
 set scrolloff=5                           " Keep at least 5 lines above/below
 set sidescrolloff=5                       " Keep at least 5 lines left/right
 
+set splitright                            " Split right instead of left
+set splitbelow                            " Split below
+
 set list listchars=tab:»·,trail:·,nbsp:+  " Show the leading whitespaces"
 set display+=uhex                         " Show unprintables as <xx>
 set display+=lastline                     " Show as much as possible of the last line
@@ -87,8 +90,6 @@ endif
 " --- Vundler ----------------------------------------------------------------
 " This section should setup VIM with very little interaction, vundle and
 " the specified Bundles are installed autmatically
-"
-" Run manually after BundleInstall: .vim/bundle/YouCompleteMe/install.sh --clang-completer
 
 " --- Function to install bundles automagically
 function! LoadBundles()
