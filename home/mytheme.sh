@@ -1,1 +1,0 @@
-/home/vk/.homesick/repos/Gorgoroth/dotfiles/home/mytheme.sh
