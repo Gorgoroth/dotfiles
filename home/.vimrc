@@ -96,18 +96,6 @@ function! LoadBundles()
   " --- let Vundle manage Vundle
   Bundle 'gmarik/vundle'
 
-  " --- VIM Powerline options
-  if has("python")
-    Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-    set noshowmode
-  else
-    Bundle 'Lokaltog/vim-powerline'
-    let g:Powerline_symbols = 'unicode'
-    set noshowmode
-  endif
-  let g:Powerline_symbols = 'fancy'
-  let g:Powerline_colorscheme = 'vk'
-
   " --- CtrlP plugin for fuzzy file finding
   Bundle 'kien/ctrlp.vim'
   let g:ctrlp_map = '<c-p>'
@@ -195,6 +183,9 @@ filetype plugin indent on               " required!
 set t_Co=256                  " Enable 256 colors
 set background=dark           " Prefer dark background
 colorscheme quelltextfabrik_dark
+
+" --- VIM Powerline options
+set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
 " --- Helpers ----------------------------------------------------------------
 " --- Always jump to last known position if valid
