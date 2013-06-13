@@ -159,6 +159,8 @@ function! LoadBundles()
   Bundle 'mattn/zencoding-vim'
   Bundle 'tpope/vim-fugitive'
 
+  Bundle 'Gorgoroth/vim-quelltextfabrik-theme'
+
   if filereadable(expand("~/.vimrc.bundles"))
     source ~/.vimrc.bundles
   endif
@@ -192,7 +194,7 @@ filetype plugin indent on               " required!
 " --- Color and color scheme
 set t_Co=256                  " Enable 256 colors
 set background=dark           " Prefer dark background
-colorscheme wombat256mod_vk   " Chose most awesome theme here
+colorscheme quelltextfabrik_dark
 
 " --- Helpers ----------------------------------------------------------------
 " --- Always jump to last known position if valid
@@ -212,6 +214,9 @@ endfunction
 if has("autocmd")
   autocmd BufWritePre *  call StripTrailingWhite()
 endif
+
+" --- Map key
+nnoremap <silent> <F9> :exec "color " . ((g:colors_name == "quelltextfabrik_dark") ? "quelltextfabrik_light" : "quelltextfabrik_dark")<CR>
 
 " --- Syntax specific settings -----------------------------------------------
 " --- Ruby
