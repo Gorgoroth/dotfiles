@@ -119,6 +119,17 @@ function! LoadBundles()
     call system('cd ~/.vim/bundle/YouCompleteMe && ./install.sh')
   endif
 
+  " --- Powerline for a nicer status bar
+  if has("python")
+    Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+    set noshowmode
+  else
+    Bundle 'Lokaltog/vim-powerline'
+    let g:Powerline_symbols = 'unicode'
+    set noshowmode
+  endif
+  let g:Powerline_symbols = 'fancy'
+
   " --- Ends e.g. ruby blocks automatically
   Bundle 'tpope/vim-endwise'
 
@@ -183,9 +194,6 @@ filetype plugin indent on               " required!
 set t_Co=256                  " Enable 256 colors
 set background=dark           " Prefer dark background
 colorscheme quelltextfabrik_dark
-
-" --- VIM Powerline options
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
 " --- Helpers ----------------------------------------------------------------
 " --- Always jump to last known position if valid
