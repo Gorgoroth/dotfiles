@@ -9,24 +9,44 @@ if has("autocmd")
   autocmd!
 endif
 
-" --- Options  ---------------------------------------------------------------
-" --- Misc options
 set nocompatible          " Enable all the cool stuff
 scriptencoding utf-8
 
+" --- Key mapping ----------------------------------------------------------
+" Remap leader to the easier reachable ,
+let mapleader=","
+
+" Paste from system clipboard
+nmap <Leader>p "+p
+
+" Clear search highlighting
+nmap <Leader>q :nohlsearch<CR>
+
+" Switch buffer more easily
+nmap <C-e> :b#<CR>
+nmap <C-l> :bnext<CR>
+nmap <C-h> :bprev<CR>
+
+" --- Options  ---------------------------------------------------------------
+" --- System
+set lazyredraw  " Don't redraw when don't have to
+set ttyfast     " Using a terminal emulator
+
 " --- Tab and whitespace options
-set smarttab                      " TODO find out, what that setting does
+set smarttab                      " TODO find out what that setting does
 set tabstop=2                     " Default tab stops
 set shiftwidth=2                  " Default auto indent
 set softtabstop=2
 set expandtab                     " Use spaces instead of tabs
 set autoindent                    " Use indent from previous line
+
 set backspace=indent,eol,start    " If backspace was any smarter it'd send a terminator back in time
 
 " --- Display options
 syntax on
 set number                                " Display line numbers
 set cursorline                            " Highlight current line
+set cul cuc                               " Cursor crosshair
 
 set nowrap                                " Soft wrapping, without changing text
 set linebreak                             " Only break on characters in 'breakat'
@@ -113,6 +133,9 @@ function! LoadBundles()
       \ }
       \ }
 
+  " --- File tree view
+  Bundle 'scrooloose/nerdtree'
+
   " --- Fast autocompletion
   Bundle 'Valloric/YouCompleteMe'
   if !filereadable(expand('~/.vim/bundle/YouCompleteMe/python/ycm_core.so'))
@@ -133,6 +156,12 @@ function! LoadBundles()
   " --- Ends e.g. ruby blocks automatically
   Bundle 'tpope/vim-endwise'
 
+  " --- Changes surrounding brackets or quotes
+  Bundle "tpope/vim-surround"
+
+  " --- Make repeat possible for plugin actions, e.g. vim-surround
+  Bundle 'tpope/vim-repeat'
+
   " --- Smart pairing of brackets with CR and SPACE awareness
   Bundle 'jiangmiao/auto-pairs'
 
@@ -142,21 +171,27 @@ function! LoadBundles()
   " --- Syntax checking
   if exists('*getmatches')
     Bundle 'scrooloose/syntastic'
-    " Lets use fancy symbols
     let g:syntastic_error_symbol='✗'
     let g:syntastic_warning_symbol='⚠'
   endif
 
+  " --- Toggle comments
   Bundle 'tomtom/tcomment_vim'
+
+  " -- Zen coding
+  Bundle 'mattn/zencoding-vim'
+
+  " --- Some language specific plugins
   Bundle 'vim-ruby/vim-ruby'
   Bundle 'vim-scripts/ruby-matchit'
   Bundle 'tpope/vim-bundler'
   Bundle 'tpope/vim-rails'
   Bundle 'tpope/vim-haml'
-  Bundle 'tpope/vim-sensible'
   Bundle 'cakebaker/scss-syntax.vim'
-  Bundle 'mattn/zencoding-vim'
-  Bundle 'tpope/vim-fugitive'
+
+  " --- Additional functions
+  " Turn .todo and .TODO files into todo lists
+  Bundle 'Gorgoroth/NotSoPlainTasks'
 
   Bundle 'Gorgoroth/vim-quelltextfabrik-theme'
 
@@ -189,6 +224,15 @@ endif
 
 filetype plugin indent on               " required!
 
+" --- Plugin key mappings ----------------------------------------------------
+" If CtrlP installed, map that
+if exists(":CtrlPBuffer")
+  nmap ; :CtrlPBuffer<CR>
+endif
+
+" Toggle nerd tree
+map <F2> :NERDTreeToggle<CR>
+
 " --- Eyecandy ---------------------------------------------------------------
 " --- Color and color scheme
 set t_Co=256                  " Enable 256 colors
@@ -199,8 +243,8 @@ colorscheme quelltextfabrik_dark
 " --- Always jump to last known position if valid
 if has ("autocmd")
   autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g `\"" |
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
     \ endif
 endif
 
