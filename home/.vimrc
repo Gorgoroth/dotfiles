@@ -119,6 +119,17 @@ function! LoadBundles()
     call system('cd ~/.vim/bundle/YouCompleteMe && ./install.sh')
   endif
 
+  " --- Powerline for a nicer status bar
+  if has("python")
+    Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+    set noshowmode
+  else
+    Bundle 'Lokaltog/vim-powerline'
+    let g:Powerline_symbols = 'unicode'
+    set noshowmode
+  endif
+  let g:Powerline_symbols = 'fancy'
+
   " --- Ends e.g. ruby blocks automatically
   Bundle 'tpope/vim-endwise'
 
@@ -146,6 +157,8 @@ function! LoadBundles()
   Bundle 'cakebaker/scss-syntax.vim'
   Bundle 'mattn/zencoding-vim'
   Bundle 'tpope/vim-fugitive'
+
+  Bundle 'Gorgoroth/vim-quelltextfabrik-theme'
 
   if filereadable(expand("~/.vimrc.bundles"))
     source ~/.vimrc.bundles
@@ -180,10 +193,7 @@ filetype plugin indent on               " required!
 " --- Color and color scheme
 set t_Co=256                  " Enable 256 colors
 set background=dark           " Prefer dark background
-colorscheme wombat256mod_vk   " Chose most awesome theme here
-
-" --- VIM Powerline options
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+colorscheme quelltextfabrik_dark
 
 " --- Helpers ----------------------------------------------------------------
 " --- Always jump to last known position if valid
@@ -203,6 +213,9 @@ endfunction
 if has("autocmd")
   autocmd BufWritePre *  call StripTrailingWhite()
 endif
+
+" --- Map key
+nnoremap <silent> <F9> :exec "color " . ((g:colors_name == "quelltextfabrik_dark") ? "quelltextfabrik_light" : "quelltextfabrik_dark")<CR>
 
 " --- Syntax specific settings -----------------------------------------------
 " --- Ruby
